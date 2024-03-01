@@ -3,13 +3,15 @@ session_start();
 class MarkdownToHtmlConverter
 {
 
+    const FILE_LIMIT = 10000;
+    const BYTES = 32;
     /**
      * generateCSRFToken creates a token to validate requests
      * @return string
      */
     public static function generateCSRFToken()
     {
-        return bin2hex(random_bytes(32));
+        return bin2hex(random_bytes(self::BYTES));
     }
 
     /**
@@ -74,7 +76,9 @@ class MarkdownToHtmlConverter
     public static function convert($markdown)
     {
         if (empty($markdown)) {
-            throw new InvalidArgumentException('Please place markdown in text area for processing.');
+            trigger_error('Please place markdown in text area for processing.', E_USER_WARNING);
+        } elseif (strlen($markdown) >= self::FILE_LIMIT) {
+            trigger_error('Please consider a smaller input', E_USER_ERROR);
         }
 
         $markdown = self::wrapUnformattedTextInParagraph($markdown); // O(n)
