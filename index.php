@@ -145,6 +145,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['markdown'])) {
     </form>
 
     <hr />
+    <textarea id="foo" name="markdown" rows="20"
+        cols="50"><?php echo isset($_POST['markdown']) ? htmlspecialchars($html) : ''; ?></textarea><br>
+    <hr />
     <br>
     <div>
         <?php echo $html ?>
