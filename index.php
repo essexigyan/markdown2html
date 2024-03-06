@@ -1,8 +1,6 @@
 <?php
-session_start();
 class MarkdownToHtmlConverter
 {
-
     const FILE_LIMIT = 10000;
     const BYTES = 32;
     /**
@@ -137,6 +135,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['markdown'])) {
 
 // } 
 
+?>
+
+<?php
+session_start();
 ?>
 
 
