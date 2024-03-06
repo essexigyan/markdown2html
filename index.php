@@ -1,7 +1,7 @@
 <?php
 class MarkdownToHtmlConverter
 {
-    const FILE_LIMIT = 10000;
+    const LINE_LIMIT = 10000;
     const BYTES = 32;
     /**
      * generateCSRFToken creates a token to validate requests
@@ -24,7 +24,7 @@ class MarkdownToHtmlConverter
 
     /**
      * markdownToHtmlMap stores the key:value pair 
-     * of a regex pattern and its corresponding html equivalent
+     * for a markdown to html regex pattern and its corresponding html equivalent
      * @var array
      * todo Make more readable, convert regex key to markdown symbol
      */
@@ -75,7 +75,7 @@ class MarkdownToHtmlConverter
     {
         if (empty($markdown)) {
             trigger_error('Please place markdown in text area for processing.', E_USER_WARNING);
-        } elseif (strlen($markdown) >= self::FILE_LIMIT) {
+        } elseif (strlen($markdown) >= self::LINE_LIMIT) {
             trigger_error('Please consider a smaller input', E_USER_ERROR);
         }
 
@@ -101,6 +101,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['markdown'])) {
 //         $expectedHtml = '<a href="https://foo.com">Foo Text</a>';
 //         $this->assertEquals($expectedHtml, MarkdownToHtmlConverter::convert($markdown));
 //     }
+
+//      function sanitizeInput($data)
+//      {
+//          $data = trim($data);
+//          $data = stripslashes($data);
+//          return $data;
+//       }
 
 //     public function testConvertHeading() {
 //         $markdown = '###### Heading 6';
@@ -151,12 +158,12 @@ session_start();
 
 <body>
     <h2>Markdown => HTML converter</h2>
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+    <form method="post" action="<?php echo htmlentities($_SERVER["PHP_SELF"]); ?>">
         <textarea id="convert" name="markdown" rows="20"
-            cols="50"><?php echo isset($_POST['markdown']) ? htmlspecialchars($_POST['markdown']) : ''; ?></textarea><br>
+            cols="50"><?php echo isset($_POST['markdown']) ? htmlentities($_POST['markdown']) : ''; ?></textarea><br>
         <input type="submit" value="Convert">
-        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-        <input type="button" onclick="clear()" value="Reset">
+        <!-- <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>"> -->
+        <input type="button" onclick="clearConvertBox()" value="Reset">
         <!-- <?php echo "<br><b>Token</b>: " . $_SESSION['csrf_token']; ?> -->
 
     </form>
@@ -169,7 +176,7 @@ session_start();
         <?php echo $html ?>
     </div>
     <script>
-        function clear() { document.getElementById("convert").value = "" }
+        function clearConvertBox() { document.getElementById("convert").value = "" }
     </script>
 </body>
 
