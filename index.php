@@ -98,6 +98,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['markdown'])) {
     $html = '';
 }
 
+//    public function testConvertLink() {
+//         $markdown = '[Foo Text](https://foo.com)';
+//         $expectedHtml = '<a href="https://foo.com">Foo Text</a>';
+//         $this->assertEquals($expectedHtml, MarkdownToHtmlConverter::convert($markdown));
+//     }
+
+//     public function testConvertHeading() {
+//         $markdown = '###### Heading 6';
+//         $expectedHtml = '<h6>Heading 6</h6>';
+//         $this->assertEquals($expectedHtml, MarkdownToHtmlConverter::convert($markdown));
+//     }
 
 
 // // Initialize or regenerate CSRF token
