@@ -156,7 +156,7 @@ session_start();
             cols="50"><?php echo isset($_POST['markdown']) ? htmlspecialchars($_POST['markdown']) : ''; ?></textarea><br>
         <input type="submit" value="Convert">
         <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-        <input type="button" onclick="myFunction()" value="Reset">
+        <input type="button" onclick="clear()" value="Reset">
         <!-- <?php echo "<br><b>Token</b>: " . $_SESSION['csrf_token']; ?> -->
 
     </form>
@@ -169,7 +169,7 @@ session_start();
         <?php echo $html ?>
     </div>
     <script>
-        function myFunction() { document.getElementById("convert").value = "" }
+        function clear() { document.getElementById("convert").value = "" }
     </script>
 </body>
 
